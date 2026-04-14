@@ -9,7 +9,7 @@ pipeline {
 		agent {label 'docker-arm'}
 			steps{
 				checkout scm
-				echo '##################### git checkout complete #####################'
+				echo '###### git checkout complete ######'
 			}
 		}
 		stage('Build Firmware'){
@@ -17,7 +17,7 @@ pipeline {
 			steps{
 				sh 'make firmware.hex'
 				stash name: 'firmware', includes: 'firmware.hex'
-				echo '##################### firmware build completet #####################'
+				echo '###### firmware build completet ######'
 			}
 		}
 		stage('Flash Arduino'){
@@ -28,7 +28,7 @@ pipeline {
 				chmod +x scripts/flashskript.sh
 				./scripts/flashskript.sh
 				'''
-				echo '################### Flash completet #####################'
+				echo '###### Flash completet ######'
 			}
 		}
 	}
