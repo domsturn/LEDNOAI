@@ -33,13 +33,11 @@ void led_modes (led_mode_t MODUS){
 	}
 }
 
-
-
 int main(void)
 {
 	DDRB |= (1 << DDB5); //Das hier definiert Pin13 als Ausgabe
 	while(1){
-		led_modes(MODE2);
+		led_modes(MODE1);
 	}
 	
 }
