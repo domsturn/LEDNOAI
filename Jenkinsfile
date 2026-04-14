@@ -6,21 +6,24 @@ pipeline {
 		agent {label 'docker-arm'}
 			steps{
 				checkout scm
+				stash name: 'workspace', includes: '**/*' #schönheitsding, damit nicht jede stage chackout machen muss
 				echo 'git checkout complete'
 			}
 		}
 		stage('Build Firmware'){
 		agent {label 'docker-arm'}
 			steps{
+				unstash: 'workspace'
 				sh 'make'
-				stash name: 'firmware', include: 'firmware.hex'
+				stash name: 'firmware', includes: 'firmware.hex'
 				echo 'firmware build completet'
 			}
 		}
 		stage('Flash Arduino'){
 		agent {label 'flash-node'}
 			steps{
-				unstash 'firmware'
+				unstash: 'workspace'
+				unstash: 'firmware'
 				sh'''
 				chmod +x scripts/flashskript.sh
 				./scripts/flashskript.sh
