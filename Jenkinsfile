@@ -14,7 +14,7 @@ pipeline {
 		agent {label 'docker-arm'}
 			steps{
 				//unstash 'workspace'
-				sh 'make'
+				sh 'make firmware.hex'
 				stash name: 'firmware', includes: 'firmware.hex'
 				echo 'firmware build completet'
 			}
