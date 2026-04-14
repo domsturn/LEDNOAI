@@ -1,7 +1,7 @@
 pipeline {
 	agent none
 	options{
-		skipDefaultCheckout(true)
+		skipDefaultCheckout(true) //Das der Checkout nur einmal am anfang gemacht werden muss
 	}
 
 	stages {
@@ -9,17 +9,15 @@ pipeline {
 		agent {label 'docker-arm'}
 			steps{
 				checkout scm
-				//stash name: 'workspace', includes: '**/*' //schönheitsding, damit nicht jede stage chackout machen muss
-				echo 'git checkout complete'
+				echo '##################### git checkout complete #####################'
 			}
 		}
 		stage('Build Firmware'){
 		agent {label 'docker-arm'}
 			steps{
-				//unstash 'workspace'
 				sh 'make firmware.hex'
 				stash name: 'firmware', includes: 'firmware.hex'
-				echo 'firmware build completet'
+				echo '##################### firmware build completet #####################'
 			}
 		}
 		stage('Flash Arduino'){
@@ -30,7 +28,7 @@ pipeline {
 				chmod +x scripts/flashskript.sh
 				./scripts/flashskript.sh
 				'''
-				echo 'Flash completet'
+				echo '################### Flash completet #####################'
 			}
 		}
 	}
