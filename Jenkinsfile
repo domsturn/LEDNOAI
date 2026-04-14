@@ -10,20 +10,20 @@ pipeline {
 			}
 		}
 		stage('Build Firmware'){
-		agent {'docker-arm'}
+		agent {label 'docker-arm'}
 			steps{
 				sh 'make'
 				echo 'firmware build completet'
 			}
 		}
 		stage('Flash Arduino'){
-		agent {'flash-node'}
+		agent {label 'flash-node'}
 			steps{
 				sh'''
 				chmod +x scripts/flashskript.sh
 				./scripts/flashskript.sh
 				'''
-			echo 'Flash completet'
+				echo 'Flash completet'
 			}
 		}
 	}
