@@ -1,7 +1,7 @@
 name: DomsCI/CT
 on: [push]
 jobs:
-  First Action:
+  First-Action:
     runs-on: windows
     steps: 
       - run: echo "Action working"
