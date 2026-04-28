@@ -2,6 +2,6 @@ name: DomsCI/CT
 on: [push]
 jobs:
   First-Action:
-    runs-on: windows
+    runs-on: ubuntu-latest
     steps: 
       - run: echo "Action working"
