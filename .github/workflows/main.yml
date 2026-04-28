@@ -1,1 +1,7 @@
 name: DomsCI/CT
+on: [push]
+jobs:
+  First Action:
+    steps: 
+      - run: echo "Action working"
+      
